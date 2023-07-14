@@ -1,4 +1,4 @@
-O scurta descriere a implementarii:
+### O scurta descriere a implementarii: ###
 
 In cadrul functiei `check_and_solve_packet()` verifica ce tip de pachet
 s-a primit si se actioneaza corespunzator acestuia.
@@ -25,22 +25,22 @@ In acest caz sunt urmatii pasii:
 - se verifica checksum
 
 - se verifica si actualizeaza TTL:
-    # daca ttl <= 1, pachetul trebuie aruncat si se trimite un mesaj 
+    - daca ttl <= 1, pachetul trebuie aruncat si se trimite un mesaj 
     ICMP `Time exceeded` (type 11, code 0)
 
 - se cauta in tabla de rutare urmatoarea destinatie a pachetului:
-    # cautarea se realizaza utilizand cautare binara pentru indicele de tabela
+    - cautarea se realizaza utilizand cautare binara pentru indicele de tabela
         (sortata pe baza prefixelor si mastilor), in momentul in care se gaseste
         prefixul bun, se cauta cea mai mare masca posibila pentru acel prefix
-    # daca nu se gaseste indicele corespunzaotr in tablea de rutare, atunci
+    - daca nu se gaseste indicele corespunzaotr in tablea de rutare, atunci
     pachetul trebuie aruncat si se trimite un mesaj ICMP `Destination unreachable`
     (type 3, code 0) 
 
 - se cauta in tablea ARP adresa mac a interfetei si urmatoarei destinatii
     pe care trebuie trimis pachetul:
-    # daca nu se gaseste adresa urmatoarei destinatii, atunci inseamna ca trebuie 
+    - daca nu se gaseste adresa urmatoarei destinatii, atunci inseamna ca trebuie 
     sa punem pachetul in coada (se reseteaza ttl si checksum ul vechi)
-    # se trimite o cerere ARP pe interfata (in mod normal trebuia trimisa broadcast,
+    - se trimite o cerere ARP pe interfata (in mod normal trebuia trimisa broadcast,
     dar in acest caz cunoastem unde ar trebui sa trimitem mesajul pe interfata)
 
 - se seteaza sursa si destinata in headerul ehternet
